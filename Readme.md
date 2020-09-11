@@ -1,7 +1,7 @@
 # Личный проект «Readme»
 
 * Студент: [Alexandra Ignatova](https://up.htmlacademy.ru/php/12/user/398607).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Пасунько](https://htmlacademy.ru/profile/id702351).
 
 ---
 
