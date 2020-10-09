@@ -48,25 +48,25 @@
     Quo id dicit accusamus inciderint. Ne mel modus vivendo. In wisi autem sadipscing qui. Wisi eripuit fabulas ut usu, movet vocent an mei. At qui feugiat vocibus conclusionemque.';
 
     function cutText($postText, $maxCharacters = 300){
-        if(strlen($postText) <= $maxCharacters){
-            return "<p>" . $postText . "</p>";
-        }
-        else {
-            $words = explode(' ',$postText);
-            $textLenth = 0;
-            $newTextArray = [];
+        $output = '';
+        $words = explode(' ', $postText);
+        $textLenth = 0;
+        $newTextArray = [];
 
-            foreach($words as $word){
-                $textLenth += strlen($word);
-                if($textLenth <= $maxCharacters){
-                    array_push($newTextArray, $word);
-                }
-                else{
-                    $newString = implode(' ', $newTextArray);
-                    return "<p>" . $newString . "...</p><a class='post-text__more-link' href='#'>Читать далее</a>";
-                }
+        foreach($words as $word){
+            $textLenth += strlen($word);
+                
+            if($textLenth <= $maxCharacters){
+                array_push($newTextArray, $word);
+            }
+            else{
+                $newString = implode(' ', $newTextArray);
+                $output = "<p>" . $newString . "...</p><a class='post-text__more-link' href='#'>Читать далее</a>";
+                return $output;
             }
         }
+        $output = "<p>" . $postText . "</p>";
+        return $output;
     }
 ?>
 <!DOCTYPE html>
@@ -289,10 +289,10 @@
                     <?php if($post['type']=='post-text'): ?>
                         <!--содержимое для поста-текста-->
                         <?php 
-                            echo cutText($longTextExample);
+                            echo cutText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum sodales ipsum. Sed neque quam, molestie sed ipsum a, interdum elementum elit. Donec eget tristique velit. Aenean vel aliquam arcu. Duis dapibus, ante at pellentesque lacinia, ex turpis elementum lectus, id semper est tellus a.");
                         ?>
                         <?php 
-                            //echo cutText($post['content']);
+                            //echo cutText($longTextExample);
                         ?>
                     <?php endif; ?>
 
