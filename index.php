@@ -48,21 +48,23 @@
     Quo id dicit accusamus inciderint. Ne mel modus vivendo. In wisi autem sadipscing qui. Wisi eripuit fabulas ut usu, movet vocent an mei. At qui feugiat vocibus conclusionemque.';
 
     function cutText($postText, $maxCharacters = 300){
-        $output = '';
-        $words = explode(' ', $postText);
-        $textLenth = 0;
-        $newTextArray = [];
 
-        foreach($words as $word){
-            $textLenth += strlen($word);
-                
-            if($textLenth <= $maxCharacters){
-                array_push($newTextArray, $word);
-            }
-            else{
-                $newString = implode(' ', $newTextArray);
-                $output = "<p>" . $newString . "...</p><a class='post-text__more-link' href='#'>Читать далее</a>";
-                return $output;
+        if(strlen($postText) > $maxCharacters) {
+            $words = explode(' ', $postText);
+            $textLenth = 0;
+            $newTextArray = [];
+
+            foreach($words as $word){
+                $textLenth += strlen($word);
+                    
+                if($textLenth <= $maxCharacters){
+                    array_push($newTextArray, $word);
+                }
+                else{
+                    $newString = implode(' ', $newTextArray);
+                    $output = "<p>" . $newString . "...</p><a class='post-text__more-link' href='#'>Читать далее</a>";
+                    return $output;
+                }
             }
         }
         $output = "<p>" . $postText . "</p>";
