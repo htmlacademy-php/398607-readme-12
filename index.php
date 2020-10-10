@@ -1,47 +1,75 @@
 <?php
-$is_auth = rand(0, 1);
-$user_name = 'Alexandra Ignatova';
+    $is_auth = rand(0, 1);
+    $user_name = 'Alexandra Ignatova';
 
-$posts = [
-    [
-        'title' => 'Цитата',
-        'type' => 'post-quote',
-        'content' => 'Мы в жизни любим только раз, а после ищем лишь похожих',
-        'user_name' => 'Лариса',
-        'userpic' => 'userpic-larisa-small.jpg',
-    ],
-    [
-        'title' => 'Игра престолов',
-        'type' => 'post-text',
-        'content' => 'Не могу дождаться начала финального сезона своего любимого сериала!',
-        'user_name' => 'Владик',
-        'userpic' => 'userpic.jpg',
-    ],
-    [
-        'title' => 'Наконец, обработал фотки!',
-        'type' => 'post-photo',
-        'content' => 'rock-medium.jpg',
-        'user_name' => 'Виктор',
-        'userpic' => 'userpic-mark.jpg',
-    ],
-    [
-        'title' => 'Моя мечта',
-        'type' => 'post-photo',
-        'content' => 'coast-medium.jpg',
-        'user_name' => 'Лариса',
-        'userpic' => 'userpic-larisa-small.jpg',
-    ],
-    [
-        'title' => 'Лучшие курсы',
-        'type' => 'post-link',
-        'content' => 'www.htmlacademy.ru',
-        'user_name' => 'Владик',
-        'userpic' => 'userpic.jpg',
-    ],
+    $posts = [
+        [
+            'title' => 'Цитата',
+            'type' => 'post-quote',
+            'content' => 'Мы в жизни любим только раз, а после ищем лишь похожих',
+            'user_name' => 'Лариса',
+            'userpic' => 'userpic-larisa-small.jpg',
+        ],
+        [
+            'title' => 'Игра престолов',
+            'type' => 'post-text',
+            'content' => 'Не могу дождаться начала финального сезона своего любимого сериала!',
+            'user_name' => 'Владик',
+            'userpic' => 'userpic.jpg',
+        ],
+        [
+            'title' => 'Наконец, обработал фотки!',
+            'type' => 'post-photo',
+            'content' => 'rock-medium.jpg',
+            'user_name' => 'Виктор',
+            'userpic' => 'userpic-mark.jpg',
+        ],
+        [
+            'title' => 'Моя мечта',
+            'type' => 'post-photo',
+            'content' => 'coast-medium.jpg',
+            'user_name' => 'Лариса',
+            'userpic' => 'userpic-larisa-small.jpg',
+        ],
+        [
+            'title' => 'Лучшие курсы',
+            'type' => 'post-link',
+            'content' => 'www.htmlacademy.ru',
+            'user_name' => 'Владик',
+            'userpic' => 'userpic.jpg',
+        ],
 
-];
+    ];
 
-//var_dump($posts);
+    $longTextExample = 'Lorem ipsum dolor sit amet, ad mea habeo virtute, idque soluta mei ne. Pri ea latine feugiat persecuti. Has inani noster consequat ex, ferri prima probatus nec in. Cum et natum dicunt conclusionemque, putent aliquam omittantur nec ei, dicat maiestatis signiferumque sea in. Aliquid facilisis cum ne.
+    Eu est torquatos argumentum, ne illud iusto mel, at sonet semper fierent mel. Eos cu iusto simul. Ea quo commodo discere pertinax, pri novum labore cu. Duo assum viderer persecuti cu, ea pro elitr quando. Errem veritus argumentum at duo.
+    Mea persecuti voluptatum at, pri timeam aliquip numquam ea. Eu his illud munere, vim meis salutatus cu. Sed ea dolore adipisci eloquentiam, ne pro ipsum consequuntur. Debet consulatu eos ad.
+    Per cu nulla graece, diam ridens id vim. Et pri nemore utroque, qui ei quaeque inciderint. His et liber recusabo disputando. Cum no elitr laoreet atomorum, esse fuisset ut per. Est at ferri perfecto, et sed fastidii consequat, sit etiam lucilius mediocrem ei.
+    Quo id dicit accusamus inciderint. Ne mel modus vivendo. In wisi autem sadipscing qui. Wisi eripuit fabulas ut usu, movet vocent an mei. At qui feugiat vocibus conclusionemque.';
+
+    function cutText($postText, $maxCharacters = 300){
+
+        if(strlen($postText) > $maxCharacters) {
+            $words = explode(' ', $postText);
+            $textLenth = 0;
+            $newTextArray = [];
+
+            foreach($words as $word){
+                $textLenth += strlen($word);
+                    
+                if($textLenth <= $maxCharacters){
+                    array_push($newTextArray, $word);
+                }
+                else{
+                    $newString = implode(' ', $newTextArray);
+                    $output = "<p>" . $newString . "...</p><a class='post-text__more-link' href='#'>Читать далее</a>";
+                    return $output;
+                }
+            }
+        }
+        $output = "<p>" . $postText . "</p>";
+        return $output;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -262,7 +290,12 @@ $posts = [
 
                     <?php if($post['type']=='post-text'): ?>
                         <!--содержимое для поста-текста-->
-                        <p><?= $post['content'];?></p>
+                        <?php 
+                            echo cutText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum rutrum sodales ipsum. Sed neque quam, molestie sed ipsum a, interdum elementum elit. Donec eget tristique velit. Aenean vel aliquam arcu. Duis dapibus, ante at pellentesque lacinia, ex turpis elementum lectus, id semper est tellus a.");
+                        ?>
+                        <?php 
+                            //echo cutText($longTextExample);
+                        ?>
                     <?php endif; ?>
 
                     <?php if($post['type']=='post-photo'): ?>
